@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Recipe Book</a>
+    </div>
+    <div class="collapse navbar-collapse"></div>
+    <ul class="nav navbar-nav">
+      <li (click)="displayOnlyRecipes()"><a href="#">Recipes</a></li>
+      <li (click)="displayOnlyShoppingList()"><a href="#">Shopping List</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a
+          (click)="toggleDisplay()"
+          href="#"
+          class="dropdown-toggle"
+          role="button"
+          >Manage <span class="caret"></span
+        ></a>
+        <ul *appDropdown="isShow">
+          <li><a href="#">Save Data</a></li>
+          <li><a href="#">Fetch Data</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
