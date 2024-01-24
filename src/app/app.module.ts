@@ -10,6 +10,10 @@ import { RecipeDetailComponent } from './recipes/recipe-list/recipe-detail/recip
 import { HeaderComponent } from './header/header/header.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { FormsModule } from '@angular/forms';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,9 +26,10 @@ import { DropdownDirective } from './shared/dropdown.directive';
     HeaderComponent,
     RecipesComponent,
     DropdownDirective,
+    RecipeEditComponent,
   ],
-  imports: [BrowserModule],
-  providers: [],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { VirtualTimeScheduler } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { Recipe } from '../../recipe.model';
+import { RecipeService } from '../../recipe.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -9,8 +10,11 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipe?: Recipe;
-  @Output() recipeItemClicked: EventEmitter<Recipe> =
-    new EventEmitter<Recipe>();
+  //Now I don't want to emit an event
+  /* @Output() recipeItemClicked: EventEmitter<Recipe> =
+    new EventEmitter<Recipe>(); */
+  constructor(private recipeService: RecipeService) {}
+
   ngOnInit(): void {}
 
   /*  displayRecipeDetailPage() {
@@ -19,7 +23,15 @@ export class RecipeItemComponent implements OnInit {
   } */
 
   onRecipeItemClicked() {
-    this.recipeItemClicked.emit(this.recipe);
+    // this.recipeItemClicked.emit(this.recipe);
+    /* Instead here, I want to call some method in my service  which will then transfer this data
+    for me*/
+
+    /* this.recipeService.recipeSelected.subscribe((recipe: Recipe) =>
+      this.recipe = recipe
+    ); */
+    this.recipeService.recipeSelected.emit(this.recipe);
+
     /* Let's make a check, let's log the value of this recipe */
     console.log(this.recipe);
   }

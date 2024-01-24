@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,13 @@ export class HeaderComponent implements OnInit {
   recipe: string = 'recipe';
   shoppingList: string = 'shopping-list';
 
-  constructor() {}
+  constructor(private router: Router) {}
   ngOnInit(): void {}
 
   displayOnlyRecipes() {
     this.recipeLinkClicked.emit(this.recipe);
     console.log(this.recipe);
+
     //return (this.displayRecipe = true);
     //this.displayShoppingList = false;
   }

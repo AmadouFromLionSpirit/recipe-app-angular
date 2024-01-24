@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 
@@ -6,23 +6,32 @@ import { ShoppingListService } from './shopping-list.service';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
-  providers: [ShoppingListService],
+  providers: [],
 })
-export class ShoppingListComponent {
-  ingredients: Ingredient[] = [
+export class ShoppingListComponent implements OnInit {
+  /*   ingredients: Ingredient[] = [
     new Ingredient('Apple', 5),
     new Ingredient('Tomato', 10),
-  ];
+  ]; */
+  ingredients: Ingredient[] | undefined;
+  ingredientAdded: Ingredient | undefined;
   valueOfIngredientInput: string = '';
   valueOfAmountInput?: number;
 
-  onAddButtonClickedFired(ingredient: Ingredient) {
-    this.valueOfIngredientInput = ingredient.name;
-    this.valueOfAmountInput = ingredient.amount;
-    this.ingredients.push(
-      new Ingredient(this.valueOfIngredientInput, this.valueOfAmountInput)
-    );
+  constructor(private shoppingListService: ShoppingListService) {}
 
-    /* There is a simple way to do it / TODO add the correction below */
+  ngOnInit(): void {
+    this.ingredients = this.shoppingListService.getIngredients();
+    this.shoppingListService.ingredientsChanged.subscribe(
+      (ingredients: Ingredient[]) => {
+        this.ingredients = ingredients;
+      }
+    );
+    this.shoppingListService.addButtonClicked.subscribe(
+      (ingredient: Ingredient) => {
+        this.ingredientAdded = ingredient;
+        //this.shoppingListService.addIngredient(ingredient);
+      }
+    );
   }
 }
